@@ -1,22 +1,29 @@
 #include <ostream>
 
+using namespace std;
 namespace ariel{
     template <typename T> class BinaryTree{
         
         private:
         struct Node{
             T value;
-            Node* next;
-            Node(const T& v, Node* n): value(v), next(n){}
+            Node* right;
+            Node* left;
+            Node(const T& v, Node* r , Node* l): value(v), right(r), left(l){}
         };
+        
+        Node* root;
 
         public:
-        BinaryTree& add_root(const T& new_root){return this*;}
-        BinaryTree& add_left(const T& exist_in_tree, const T& add_new_left_child){return this*;}
-        BinaryTree& add_right(const T& exist_in_tree, const T& add_new_right_child){return this*;}
+        
+        BinaryTree& add_root(const T& new_root){return *this;}
+        BinaryTree& add_left(const T& exist_in_tree, const T& add_new_left_child){return *this;}
+        BinaryTree& add_right(const T& exist_in_tree, const T& add_new_right_child){return *this;}
 
         /* print tree function */
-        friend ostream& operator<<(ostream& out, Board const& b);
+        friend ostream& operator<<(ostream& out, BinaryTree const& b){
+            return out;
+        }
 
         //-------------------------------------------------------------------
         // iterator related code:
@@ -29,7 +36,8 @@ namespace ariel{
             
             public:
 
-            iterator(Node* pointer = nullptr): current_node(ptr){}
+            iterator(Node* pointer = nullptr): current_node(pointer){}
+            
             T& operator*() const {
 			//return *pointer_to_current_node;
 			return current_node-> value;
@@ -39,18 +47,13 @@ namespace ariel{
                 return &(current_node->value);
             }
 
-            // ++i;
             iterator& operator++() {
-                //++pointer_to_current_node;
-                current_node = current_node->next;
                 return *this;
             }
 
-            // i++;
-            // Usually iterators are passed by value and not by const& as they are small.
             const iterator operator++(int) {
                 iterator tmp= *this;
-                current_node= current_node->next;
+                // current_node= current_node->next;
                 return tmp;
             }
 
@@ -66,24 +69,27 @@ namespace ariel{
 
         iterator begin_preorder() {
 		// return &(m_first->m_value); 
-		return iterator{m_first};
+		return iterator{root};
 	    }
         iterator end_preorder() {
 		// return nullptr; 
-		return iterator{nullptr};
+		    return iterator{root};
 	    }
         iterator begin_inorder(){
-            return iterator{m_first};
+            return iterator{root};
         }
         iterator end_inorder(){
-            return iterator{nullptr};
+            return iterator{root};
         }
         iterator begin_postorder(){
-            return iterator{m_first};
+            return iterator{root};
         }
         iterator end_postorder(){
-            return iterator{nullptr};
+            return iterator{root};
         }
-        
+
+        iterator begin(){ return iterator{root};}
+        iterator end() {return iterator{root};}
     };
+    
 }
