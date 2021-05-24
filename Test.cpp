@@ -53,7 +53,7 @@ TEST_CASE("Update child"){
     .add_left(3, 6)      
     .add_right(3, 7);    
 
-    tree_of_ints.add_right(3,8); //updated the right child of node 3
+    tree_of_ints.add_right(3,8); //updating the right child of node 3
 
     string preorder_treverse = "";
     for (auto it=tree_of_ints.begin_preorder(); it!=tree_of_ints.end_preorder(); ++it) {
@@ -85,7 +85,7 @@ TEST_CASE("Update root"){
     .add_left(3, 6)      
     .add_right(3, 7);    
 
-    tree_of_ints.add_root(8); //updated the right child of node 3
+    tree_of_ints.add_root(8); //updatin the root
 
     string preorder_treverse = "";
     for (auto it=tree_of_ints.begin_preorder(); it!=tree_of_ints.end_preorder(); ++it) {
@@ -113,12 +113,12 @@ TEST_CASE("Update root"){
 TEST_CASE("Tree of chars"){
     BinaryTree<char> tree_of_chars;
     tree_of_chars.add_root(1)
-    .add_left('a', 'b')      // Now 2 is the left child of 1
-    .add_left('b', 'd')      // Now 4 is the left child of 2
-    .add_right('a', 'c')     // Now 3 is the right child of 1
-    .add_right('b', 'e')     // Now 5 is the right child of 2
-    .add_left('c', 'f')      // Now 6 is the right child of 3
-    .add_right('c', 'g');    // Now 7 is the left child of 3
+    .add_left('a', 'b')      // b is the left child of a
+    .add_left('b', 'd')      // d is the left child of b
+    .add_right('a', 'c')     // c is the right child of a
+    .add_right('b', 'e')     // e is the right child of b
+    .add_left('c', 'f')      // f is the right child of c
+    .add_right('c', 'g');    // g is the left child of c
 
     /* My tree is:
             a
@@ -152,7 +152,7 @@ TEST_CASE("Tree of chars"){
 }
 
 TEST_CASE("false information"){
-    //* Same tree as the one in the first test case
+    /* Same tree as the one in the first test case */
     BinaryTree<int> tree_of_ints;
     tree_of_ints.add_root(1)
     .add_left(1, 2)      
@@ -162,12 +162,15 @@ TEST_CASE("false information"){
     .add_left(3, 6)      
     .add_right(3, 7);
 
+    /* check updates between nodes that exists in the tree */
     CHECK_THROWS(tree_of_ints.add_left(2,1));
     CHECK_THROWS(tree_of_ints.add_left(4,2));
     CHECK_THROWS(tree_of_ints.add_left(6,3));
     CHECK_THROWS(tree_of_ints.add_right(5,2));
     CHECK_THROWS(tree_of_ints.add_right(3,1));
     CHECK_THROWS(tree_of_ints.add_right(7,3));
+
+    /* check updates between nodes that not exists in the tree */
     CHECK_THROWS(tree_of_ints.add_left(4,10));
     CHECK_THROWS(tree_of_ints.add_left(5,10));
     CHECK_THROWS(tree_of_ints.add_left(6,10));
