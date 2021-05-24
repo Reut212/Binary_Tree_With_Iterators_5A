@@ -112,7 +112,7 @@ TEST_CASE("Update root"){
 
 TEST_CASE("Tree of chars"){
     BinaryTree<char> tree_of_chars;
-    tree_of_chars.add_root(1)
+    tree_of_chars.add_root('a')
     .add_left('a', 'b')      // b is the left child of a
     .add_left('b', 'd')      // d is the left child of b
     .add_right('a', 'c')     // c is the right child of a
